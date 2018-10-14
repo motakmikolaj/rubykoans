@@ -1,3 +1,3 @@
 # rubykoans
 Those are my rubykoans solutions.
-I'm now at 31/282.
+I'm now at 83/282.
