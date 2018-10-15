@@ -29,8 +29,66 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
+def isOne(dice)
+  if dice == 1
+    return 100
+  elsif dice == 5
+    return 50
+  else
+    return 0
+  end
+end
+
+def isThree(dice)
+  if dice[0] == 1
+    return 1000
+  else
+    return dice[0]*100
+  end
+end
+
+def areTheSame(dice)
+  if (dice[0] == dice[1]) && (dice[1] == dice[2])
+    return true
+  else
+    return false
+  end
+end
+
 def score(dice)
-  # You need to write this method
+  size = dice.length
+  if size == 0
+    return 0
+  elsif size == 1
+    return isOne(dice[0])
+  elsif size == 2
+    return isOne(dice[0]) + isOne(dice[1])
+  elsif size == 3
+    if areTheSame(dice)
+      return isThree(dice)
+    else return isOne(dice[0]) + isOne(dice[1]) + isOne(dice[2])
+    end
+  elsif size == 4
+    dices = dice.sort
+    if areTheSame([dices[0], dices[1], dices[2]])
+      return isThree([dices[0], dices[1], dices[2]]) + isOne(dices[3])
+    elsif areTheSame([dices[1], dices[2], dices[3]])
+      return isThree([dices[1], dices[2], dices[3]]) + isOne(dices[0])
+    else isOne(dices[0]) + isOne(dices[1]) + isOne(dices[2]) + isOne(dices[3])
+    end
+  elsif size == 5
+    dices = dice.sort
+    if areTheSame([dices[0], dices[1], dices[2]]) #0 1 2
+      return isThree([dices[0], dices[1], dices[2]]) + isOne(dices[3]) + isOne(dices[4])
+    elsif areTheSame([dices[1], dices[2], dices[3]]) #1 2 3
+      return isThree([dices[1], dices[2], dices[3]]) + isOne(dices[0]) + isOne(dices[4])
+    elsif areTheSame([dices[2], dices[3], dices[4]]) #2 3 4
+      return isThree([dices[2], dices[3], dices[4]]) + isOne(dices[0]) + isOne(dices[1])
+    else isOne(dices[0]) + isOne(dices[1]) + isOne(dices[2]) + isOne(dices[3])
+    end
+  else
+    return 1
+  end
 end
 
 class AboutScoringProject < Neo::Koan

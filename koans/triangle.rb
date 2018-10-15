@@ -14,7 +14,30 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-  # WRITE THIS CODE
+  segm = [a,b,c].sort
+  
+  if ((a <= 0) || (b <= 0) || (c <= 0)) 
+    raise TriangleError, "Segments have to be positive value!"
+    
+  elsif (segm[0] + segm[1] <= segm[2])  
+    raise TriangleError, "Those segments won't create triangle!"
+    
+  elsif ((a == b) && (b == c) && (a == c))  
+    return :equilateral
+    
+  elsif (a == b)  
+    return :isosceles
+    
+  elsif (a == c) 
+    return :isosceles
+    
+  elsif (b == c)
+    return :isosceles
+    
+  else
+    return :scalene
+  end
+  
 end
 
 # Error class used in part 2.  No need to change this code.
